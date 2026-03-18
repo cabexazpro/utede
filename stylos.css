@@ -1,0 +1,48 @@
+  #Formulario, #datos {
+            text-align: center;
+            margin: 20px auto;
+            max-width: 500px;
+            }
+
+            #Registro {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            }
+
+            #Registro label {
+            font-weight: bold;
+            }
+
+            #Registro input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            }
+            .error{
+            color: red;
+            border: red solid 4px;
+            }
+            button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            }
+
+            #tablaDatos {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            }
+
+            #tablaDatos th, #tablaDatos td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            }
+
+            #tablaDatos th {
+            background-color: #f2f2f2;
+            }

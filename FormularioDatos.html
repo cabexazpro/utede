@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="stylos.css">
+        <script src="script.js"></script>
+        <title>Ejemplo Datos</title>
+    </head>
+    <body>
+        <div id="Formulario">
+            <form name="Registro" id="Registro">
+            <label for="Nombre">Nombre:</label>
+            <input type="text" id="Nombre" name="Nombre" >
+            <label id="errorNombre" class="error" style="display: none;"></label>
+            <label for="Cedula">Cédula:</label> 
+            <input  type="number" id="Cedula" name="Cedula"  >
+            
+            <button type="submit" onclick="guardarDatos()">Almacenar</button>
+            </form>
+            <form name="Busqueda" id="Busqueda">
+            <label for="Buscar">Buscar</label>
+            <input type="text" id="Buscar" name="Buscar"  >
+            <img src="search-heart-fill.svg" onclick="buscarDatos()">
+            <button onclick="buscarDatos()">Buscar</button>
+            </form>
+        </div>
+
+        <div id="datos">
+            <table id="tablaDatos">
+            <thead>
+                <tr>
+                <th>Nombre</th>
+                <th>Cédula</th>
+                <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            </table>
+        </div>
+
+        
+    
+    </body>
+</html>

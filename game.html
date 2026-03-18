@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de las Ranas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+        #pond {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 50px auto;
+            width: 600px;
+            height: 100px;
+            background-color: #87CEEB;
+            border-radius: 10px;
+            position: relative;
+        }
+        .frog {
+            width: 80px;
+            height: 80px;
+            margin: 10px;
+            cursor: pointer;
+            font-size: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+        }
+        .green { background-color: green; color: white; }
+        .brown { background-color: brown; color: white; }
+        .empty { background-color: transparent; }
+        #message {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Juego de las Ranas</h1>
+    <p>Haz clic en una rana para seleccionarla, luego en el espacio vacío para moverla. El objetivo es intercambiar las posiciones.</p>
+    <div id="pond">
+        <div class="frog green" data-type="green">🐸</div>
+        <div class="frog green" data-type="green">🐸</div>
+        <div class="frog green" data-type="green">🐸</div>
+        <div class="frog empty" data-type="empty"></div>
+        <div class="frog brown" data-type="brown">🐸</div>
+        <div class="frog brown" data-type="brown">🐸</div>
+        <div class="frog brown" data-type="brown">🐸</div>
+    </div>
+    <div id="message"></div>
+
+    <script>
+        const pond = document.getElementById('pond');
+        const message = document.getElementById('message');
+        let selectedFrog = null;
+
+        pond.addEventListener('click', (e) => {
+            if (e.target.classList.contains('frog')) {
+                if (selectedFrog) {
+                    // Intentar mover
+                    const selectedIndex = Array.from(pond.children).indexOf(selectedFrog);
+                    const targetIndex = Array.from(pond.children).indexOf(e.target);
+                    const distance = Math.abs(selectedIndex - targetIndex);
+
+                    if (e.target.classList.contains('empty') && (distance === 1 || (distance === 2 && !pond.children[selectedIndex + (targetIndex - selectedIndex) / 2].classList.contains('empty')))) {
+                        // Mover
+                        const tempType = selectedFrog.dataset.type;
+                        const tempContent = selectedFrog.innerHTML;
+                        selectedFrog.dataset.type = e.target.dataset.type;
+                        selectedFrog.innerHTML = e.target.innerHTML;
+                        selectedFrog.className = `frog ${e.target.dataset.type}`;
+                        e.target.dataset.type = tempType;
+                        e.target.innerHTML = tempContent;
+                        e.target.className = `frog ${tempType}`;
+                        selectedFrog = null;
+                        checkWin();
+                    } else {
+                        selectedFrog = null;
+                    }
+                } else {
+                    // Seleccionar
+                    if (!e.target.classList.contains('empty')) {
+                        selectedFrog = e.target;
+                        selectedFrog.style.border = '2px solid red';
+                    }
+                }
+            }
+        });
+
+        function checkWin() {
+            const frogs = Array.from(pond.children).map(f => f.dataset.type);
+            if (frogs.join('') === 'brown,brown,brown,empty,green,green,green'.replace(/,/g, '')) {
+                message.textContent = '¡Ganaste!';
+            } else {
+                message.textContent = '';
+            }
+        }
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de las Ranas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+        #pond {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 50px auto;
+            width: 600px;
+            height: 100px;
+            background-color: #87CEEB;
+            border-radius: 10px;
+            position: relative;
+        }
+        .frog {
+            width: 80px;
+            height: 80px;
+            margin: 10px;
+            cursor: pointer;
+            font-size: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+        }
+        .green { background-color: green; color: white; }
+        .brown { background-color: brown; color: white; }
+        .empty { background-color: transparent; }
+        #message {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Juego de las Ranas</h1>
+    <p>Haz clic en una rana para seleccionarla, luego en el espacio vacío para moverla. El objetivo es intercambiar las posiciones.</p>
+    <div id="pond">
+        <div class="frog green" data-type="green">🐸</div>
+        <div class="frog green" data-type="green">🐸</div>
+        <div class="frog green" data-type="green">🐸</div>
+        <div class="frog empty" data-type="empty"></div>
+        <div class="frog brown" data-type="brown">🐸</div>
+        <div class="frog brown" data-type="brown">🐸</div>
+        <div class="frog brown" data-type="brown">🐸</div>
+    </div>
+    <div id="message"></div>
+
+    <script>
+        const pond = document.getElementById('pond');
+        const message = document.getElementById('message');
+        let selectedFrog = null;
+
+        pond.addEventListener('click', (e) => {
+            if (e.target.classList.contains('frog')) {
+                if (selectedFrog) {
+                    if (e.target === selectedFrog) {
+                        // Deseleccionar
+                        selectedFrog.style.border = '';
+                        selectedFrog = null;
+                    } else if (e.target.classList.contains('empty')) {
+                        // Intentar mover
+                        const selectedIndex = Array.from(pond.children).indexOf(selectedFrog);
+                        const targetIndex = Array.from(pond.children).indexOf(e.target);
+                        const distance = Math.abs(selectedIndex - targetIndex);
+                        const isGreen = selectedFrog.dataset.type === 'green';
+                        const isBrown = selectedFrog.dataset.type === 'brown';
+                        const correctDirection = (isGreen && targetIndex > selectedIndex) || (isBrown && targetIndex < selectedIndex);
+                        const middleIndex = selectedIndex + (targetIndex - selectedIndex) / 2;
+                        const canJump = distance === 2 && !pond.children[middleIndex].classList.contains('empty');
+
+                        if (correctDirection && (distance === 1 || canJump)) {
+                            // Mover
+                            const tempType = selectedFrog.dataset.type;
+                            const tempContent = selectedFrog.innerHTML;
+                            selectedFrog.dataset.type = e.target.dataset.type;
+                            selectedFrog.innerHTML = e.target.innerHTML;
+                            selectedFrog.className = `frog ${e.target.dataset.type}`;
+                            e.target.dataset.type = tempType;
+                            e.target.innerHTML = tempContent;
+                            e.target.className = `frog ${tempType}`;
+                            selectedFrog.style.border = '';
+                            selectedFrog = null;
+                            checkWin();
+                        }
+                    } else {
+                        // Seleccionar otra rana
+                        selectedFrog.style.border = '';
+                        selectedFrog = e.target;
+                        selectedFrog.style.border = '2px solid red';
+                    }
+                } else {
+                    // Seleccionar
+                    if (!e.target.classList.contains('empty')) {
+                        selectedFrog = e.target;
+                        selectedFrog.style.border = '2px solid red';
+                    }
+                }
+            }
+        });
+
+        function checkWin() {
+            const frogs = Array.from(pond.children);
+            const isWin = frogs.every((f, i) => {
+                if (i < 3) return f.dataset.type === 'brown';
+                if (i === 3) return f.dataset.type === 'empty';
+                return f.dataset.type === 'green';
+            });
+            message.textContent = isWin ? '¡Ganaste!' : '';
+        }
+    </script>
+</body>
+</html>
